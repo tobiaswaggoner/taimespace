@@ -30,7 +30,11 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: List files in the repository
+      run: ls -la
+
     - name: Deploy to AKS
       run: |
         az aks get-credentials --resource-group taimespace --name taimespace
         kubectl apply -f ./k8s/
+      working-directory: ${{ github.workspace }}
