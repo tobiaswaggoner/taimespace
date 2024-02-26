@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node server.ts",
     "build": "next build",
-    "start": "node dist/server.js",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
