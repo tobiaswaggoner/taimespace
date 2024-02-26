@@ -36,5 +36,12 @@ jobs:
     - name: Deploy to AKS
       run: |
         az aks get-credentials --resource-group taimespace --name taimespace
-        kubectl apply -f ./k8s/
+    - name: Replace placeholders and deploy
+      run: |
+        envsubst < k8s/ui-deployment.yml | kubectl apply -f -
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
+        AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
+        AUTH0_CLIENT_ID: ${{ secrets.AUTH0_CLIENT_ID }}
       working-directory: ${{ github.workspace }}
