@@ -25,6 +25,11 @@ jobs:
         docker build -t taimespace.azurecr.io/taimespaceadmin:latest ./src/taimespaceadmin
         docker push taimespace.azurecr.io/taimespaceadmin:latest
 
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Deploy to AKS
       run: |
         az aks get-credentials --resource-group taimespace --name taimespace

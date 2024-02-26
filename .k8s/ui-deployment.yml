@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taimespaceadmin-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taimespaceadmin-ui
+  template:
+    metadata:
+      labels:
+        app: taimespaceadmin-ui
+    spec:
+      containers:
+      - name: taimespaceadmin-ui
+        image: taimespace.azurecr.io/taimespaceadmin:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: RMQ_HOST
+          value: rabbitmq
+        - name: RMQ_PORT
+          value: "5672"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taimespaceadmin-ui
+spec:
+  type: LoadBalancer
+  selector:
+    app: taimespaceadmin-ui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
