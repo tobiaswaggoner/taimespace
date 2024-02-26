@@ -22,6 +22,8 @@ spec:
           value: rabbitmq
         - name: RMQ_PORT
           value: "5672"
+        - name: OPENAI_API_KEY
+          value: ${{ secrets.OPENAI_API_KEY }}
 
 ---
 apiVersion: v1
