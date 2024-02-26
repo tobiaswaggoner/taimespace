@@ -33,11 +33,9 @@ jobs:
     - name: List files in the repository
       run: ls -la
 
-    - name: Deploy to AKS
+    - name: Replace placeholders and deploy to AKS
       run: |
         az aks get-credentials --resource-group taimespace --name taimespace
-    - name: Replace placeholders and deploy
-      run: |
         envsubst < k8s/ui-deployment.yml | kubectl apply -f -
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
