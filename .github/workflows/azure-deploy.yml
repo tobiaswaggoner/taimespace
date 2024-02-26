@@ -1,0 +1,31 @@
+name: CI/CD to Azure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: taimespace.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+    - name: Build and Push Docker Images
+      run: |
+        docker build -t taimespace.azurecr.io/taimespaceadmin:latest ./src/taimespaceadmin
+        docker push taimespace.azurecr.io/taimespaceadmin:latest
+
+    - name: Deploy to AKS
+      run: |
+        az aks get-credentials --resource-group taimespace --name taimespace
+        kubectl apply -f ./k8s/
