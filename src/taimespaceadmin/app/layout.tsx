@@ -8,8 +8,8 @@ import { getSession } from "@auth0/nextjs-auth0";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AIccountant",
-  description: "A fully automated accounting system for small businesses.",
+  title: "TaimeSpace",
+  description: "Der interaktive Tutor aus dem digitalen Herzen Thüringens!",
 };
 
 export default async function RootLayout({
