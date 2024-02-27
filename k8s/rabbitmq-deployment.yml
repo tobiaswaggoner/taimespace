@@ -20,6 +20,11 @@ spec:
           name: amqp
         - containerPort: 15672
           name: management
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          value: ${RABBITMQ_DEFAULT_USER}
+        - name: RABBITMQ_DEFAULT_PASS
+          value: ${RABBITMQ_DEFAULT_PASS}
 
 ---
 apiVersion: v1

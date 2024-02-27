@@ -36,8 +36,11 @@ jobs:
     - name: Replace placeholders and deploy to AKS
       run: |
         az aks get-credentials --resource-group taimespace --name taimespace
+        envsubst < k8s/rabbitmq-deployment.yml | kubectl apply -f -
         envsubst < k8s/ui-deployment.yml | kubectl apply -f -
       env:
+        RABBITMQ_DEFAULT_USER: ${{ secrets.RABBITMQ_DEFAULT_USER }}
+        RABBITMQ_DEFAULT_PASS: ${{ secrets.RABBITMQ_DEFAULT_PASS }}
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
         AUTH0_CLIENT_SECRET: ${{ secrets.AUTH0_CLIENT_SECRET }}
