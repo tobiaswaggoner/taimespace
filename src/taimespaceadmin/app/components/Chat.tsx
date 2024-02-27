@@ -139,8 +139,13 @@ export default function Chat() {
     }, []);
     return (
         <main className="flex flex-col h-full">
-            <div className="w-full px-4 py-3 border border-2 bg-gray-800 border-gray-800" style={{ flexShrink: 0 }}>
-                <span className="text-xl font-bold text-gray-300">AIccountant</span>
+            <div className="w-full px-4 pt-3 border border-2 bg-gray-800 border-gray-800" style={{ flexShrink: 0 }}>
+                <span className="text-xl font-bold text-gray-300">T</span>
+                <span className="text-xl font-bold text-red-800">AI</span>
+                <span className="text-xl font-bold text-gray-300">meSpace</span>
+            </div>
+            <div className="w-full px-4 border border-2 bg-gray-800 border-gray-800" style={{ flexShrink: 0 }}>
+                <span className="text-small text-gray-4 00">Chatte mit der KI</span>
             </div>
             <div {...getRootProps()} className={`flex flex-col w-full flex-grow overflow-y-auto p-2 text-white border border-2 border-gray-800 ${isDragActive ? "bg-gray-400" : "bg-gray-800"}`} onScroll={handleScroll} >
                 {messages.map((message, index) => (

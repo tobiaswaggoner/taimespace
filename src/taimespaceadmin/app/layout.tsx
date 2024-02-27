@@ -24,7 +24,7 @@ export default async function RootLayout({
       <UserProvider>
         <body className={inter.className}>
           <div className="flex font">
-            <div className="w-16">
+            <div className="w-16 lg:block hidden">
               <Navbar />
             </div>
             <main className="flex-1">
