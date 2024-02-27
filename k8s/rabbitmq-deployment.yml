@@ -37,3 +37,17 @@ spec:
   ports:
     - port: 5672
       targetPort: amqp
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmqui
+spec:
+  type: LoadBalancer
+  selector:
+    app: rabbitmq
+  ports:
+    - protocol: TCP
+      port: 15672
+      targetPort: 15672
