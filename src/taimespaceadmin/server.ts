@@ -28,9 +28,9 @@ app.prepare().then(() => {
   const chatHandler = ChatHandler;
   chatHandler.init(io, rmqConnection);
 
-  // // Initialize the AIChatHandler with the RabbitMQ connection
-  const aiChatHandler = AIChatHandler;
-  aiChatHandler.init(rmqConnection);
+  // Initialize the AIChatHandler with the RabbitMQ connection
+  // const aiChatHandler = AIChatHandler;
+  // aiChatHandler.init(rmqConnection);
 
   expressServer.get('*', (req, res) => {
     return handle(req, res);

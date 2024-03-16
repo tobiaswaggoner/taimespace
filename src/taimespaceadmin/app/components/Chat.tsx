@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import { useDropzone } from 'react-dropzone'
 import IFileAddedMessage from '@/contract/Messages/IFileAddedMessage';
 import IChatMessage from '@/contract/Messages/IChatMessage';
-import IAIccountantMessage from '@/contract/Messages/IAIccountantMessage';
+import ITAImeSpaceMessage from '@/contract/Messages/ITAImeSpaceMessage';
 import { RoutingKeys } from '@/contract/RoutingKeys';
 
 export default function Chat() {
@@ -129,8 +129,8 @@ export default function Chat() {
         });
 
         newSocket.on(RoutingKeys.CHAT_MESSAGE_AI, (msg) => {
-            const aiccountantMessage = msg as IAIccountantMessage;
-            const newAIMessage = JSON.parse(aiccountantMessage.Payload) as IChatMessage;
+            const taimespaceMessage = msg as ITAImeSpaceMessage;
+            const newAIMessage = JSON.parse(taimespaceMessage.Payload) as IChatMessage;
             setMessages((prevMessages) => [...prevMessages, newAIMessage]);
         });
         return () => {

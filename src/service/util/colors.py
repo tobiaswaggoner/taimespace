@@ -1,0 +1,5 @@
+color_green = "\033[92m"
+color_red = "\033[91m"
+color_normal = "\033[0m"
+font_italic = "\033[3m"
+font_normal = "\033[0m"

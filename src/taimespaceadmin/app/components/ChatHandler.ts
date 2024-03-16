@@ -1,7 +1,7 @@
 import { Server as SocketIOServer, Socket } from "socket.io";
 import { RabbitMQConnection } from '@/server/rabbitmq/rabbitmqconnection';
 import { randomUUID } from "crypto";
-import IAIccountantMessage, { IAIccountantMessageHeader } from '../../contract/Messages/IAIccountantMessage'
+import ITAImeSpaceMessage, { ITAImeSpaceMessageHeader } from '../../contract/Messages/ITAImeSpaceMessage'
 import { RoutingKeys, RoutingKey, DefaultExchange } from '../../contract/RoutingKeys'
 
 class ChatHandler {
@@ -34,8 +34,8 @@ class ChatHandler {
     }
 
     private handleForwardMessage(socket: Socket, routingKey: RoutingKey, msg: any) {
-        const message = {} as IAIccountantMessage;
-        message.Header = {} as IAIccountantMessageHeader
+        const message = {} as ITAImeSpaceMessage;
+        message.Header = {} as ITAImeSpaceMessageHeader
         message.Header.Sender = this.userName;
         message.Header.MessageType = routingKey;
         message.Header.MessageId = randomUUID();
@@ -51,8 +51,8 @@ class ChatHandler {
         console.log(`User: Incoming message: ${message}`);
         if(!self.io) return;
 
-        const msg = JSON.parse(message) as IAIccountantMessage;
-        // Check if the message is a AIccountantMessage
+        const msg = JSON.parse(message) as ITAImeSpaceMessage;
+        // Check if the message is a TAImeSpaceMessage
         if(!msg.Header || !msg.Payload) return;
         // Check if the message is a ChatMessage
         if(msg.Header.MessageType !== RoutingKeys.CHAT_MESSAGE_AI) return;

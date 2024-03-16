@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { RabbitMQConnection } from "../rabbitmq/rabbitmqconnection";
 import OpenAICompletion from "./OpenAICompletion";
 import { RoutingKeys, RoutingKey, DefaultExchange } from "../../contract/RoutingKeys";
-import IAIccountantMessage, {IAIccountantMessageHeader}  from "../../contract/Messages/IAIccountantMessage";
+import ITAImeSpaceMessage, { ITAImeSpaceMessageHeader}  from "../../contract/Messages/ITAImeSpaceMessage";
 import IChatMessage from "../../contract/Messages/IChatMessage";
 
 class AIChatHandler {
@@ -21,8 +21,8 @@ class AIChatHandler {
     async handleIncomingNotification(self: AIChatHandler, message: string) {
         console.log(`Chatbot: Incoming message: ${message}`);
 
-        const msg = JSON.parse(message) as IAIccountantMessage
-        // Check if the message is a AIccountantMessage
+        const msg = JSON.parse(message) as ITAImeSpaceMessage
+        // Check if the message is a TAImeSpaceMessage
         if(!msg.Header || !msg.Payload) return;
         // Check if the message is for this user
         if(msg.Header.MessageType != RoutingKeys.CHAT_MESSAGE_USER) return;
@@ -38,8 +38,8 @@ class AIChatHandler {
 
         if (!aiResponse) return;
 
-        const response = {} as IAIccountantMessage;
-        response.Header = {} as IAIccountantMessageHeader;
+        const response = {} as ITAImeSpaceMessage;
+        response.Header = {} as ITAImeSpaceMessageHeader;
         response.Header.Sender = self.userName;
         response.Header.MessageId = randomUUID();
         response.Header.CorrelationId = msg.Header.CorrelationId;
@@ -56,7 +56,7 @@ class AIChatHandler {
         self.rmqConnection?.sendToExchange(self.exchange, response, RoutingKeys.CHAT_MESSAGE_AI as RoutingKey);
     }
 
-    async handleChatMessage(self: AIChatHandler, msg: IAIccountantMessage): Promise<string>
+    async handleChatMessage(self: AIChatHandler, msg: ITAImeSpaceMessage): Promise<string>
     {
         const payload = JSON.parse(msg.Payload) as IChatMessage;
         if(!payload.Message) return "";
