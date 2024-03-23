@@ -7,7 +7,12 @@ import IChatMessage from '@/contract/Messages/IChatMessage';
 import ITAImeSpaceMessage from '@/contract/Messages/ITAImeSpaceMessage';
 import { RoutingKeys } from '@/contract/RoutingKeys';
 
-export default function Chat() {
+interface IChatProps {
+    user: string;
+}
+
+export default function Chat(props: IChatProps) {
+    const user = props.user;
 
     const [autoScroll, setAutoScroll] = useState<boolean>(true);
     const socketRef = useRef<any>(null);
@@ -90,7 +95,7 @@ export default function Chat() {
 
             const newMessage = {} as IChatMessage;
             newMessage.Message = input;
-            newMessage.Sender = "User";
+            newMessage.Sender = user;
             newMessage.Timestamp = new Date();
 
             socketRef.current.emit(RoutingKeys.CHAT_MESSAGE_USER, newMessage);
@@ -145,11 +150,11 @@ export default function Chat() {
                 <span className="text-xl font-bold text-gray-300">meSpace</span>
             </div>
             <div className="w-full px-4 border border-2 bg-gray-800 border-gray-800" style={{ flexShrink: 0 }}>
-                <span className="text-small text-gray-400">Chatte mit der KI</span>
+                <span className="text-small text-gray-400">Chatte mit der KI: {(user)}</span>
             </div>
             <div {...getRootProps()} className={`flex flex-col w-full flex-grow overflow-y-auto p-2 text-white border border-2 border-gray-800 ${isDragActive ? "bg-gray-400" : "bg-gray-800"}`} onScroll={handleScroll} >
                 {messages.map((message, index) => (
-                    <div key={index} className={`my-2 ${message.Sender === 'User' ? 'text-green-300' : 'text-blue-300'}`}>
+                    <div key={index} className={`my-2 ${message.Sender === user ? 'text-green-300' : 'text-blue-300'}`}>
                         <span className='p-2 rounded-lg'>{message.Message}</span>
                     </div>
                 ))}

@@ -1,23 +1,19 @@
-"use client"
 
-import { use, useEffect, useRef, useState } from "react";
 import Chat from "@/app/components/Chat";
-import Split from '@uiw/react-split';
+import { getSession } from "@auth0/nextjs-auth0";
 
 
-export default function ChatPage() {
-
+export default async function ChatPage() {
+    const session = await getSession();
+    const user: string = session?.user?.name;
     return (
-        <Split
-            className="flex h-screen w-full"
-            mode="horizontal"
-        >
+        <div className="flex flex-row">
             <div style={{ width: '400px', minWidth: '50px' }} className="ml-1 overflow-hidden h-screen border border-black">
-                <Chat />
+                <Chat user={user} />
             </div>
             <div className="flex-1 overflow-auto h-screen border border-black">
-                Dies ist nur ein erster Test!
+                Dies ist nur ein erster Test! {(user)}
             </div>
-        </Split>
+        </div>
     );
 }

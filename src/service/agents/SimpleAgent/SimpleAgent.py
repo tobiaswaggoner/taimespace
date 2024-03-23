@@ -64,13 +64,13 @@ class SimpleAgent(BaseAgent):
         chat_message = ChatMessage.model_validate_json(taimespace_message.Payload)
         print(f"{color_green}{chat_message.Sender}: {chat_message.Message}{color_normal}")
 
-        conversation = self.get_conversation(taimespace_message.Header.CorrelationId)
+        conversation = self.get_conversation(chat_message.Sender)
         conversation.add_message(role="user", name=chat_message.Sender, content=chat_message.Message)
 
         # let the AI complete the message
         completion = self.complete_message(conversation)
 
-        response_message = self.create_response(completion, taimespace_message)
+        response_message = self.create_response(f"[{len(conversation.messages)}] {completion}", taimespace_message)
 
         self.logger.log(
             logging.INFO, f"AI {self.agent_name} sending message: {response_message}"
