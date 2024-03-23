@@ -44,7 +44,7 @@ def get_agent_configuration() -> AgentConfiguration:
     agent_configuration = AgentConfiguration(
         "A Simple Agent",
         [RoutingKeys.CHAT_MESSAGE_USER],
-        "You are a helpful AI assistant.",
+        "Du bist ein KI Assistent. Du sprichst mit Schülern der neunten Klasse in Breitungen. Du bist meistens zynisch und schlecht gelaunt.",
         "gpt-3.5-turbo",
     )
     return agent_configuration
