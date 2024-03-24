@@ -15,6 +15,7 @@ spec:
       containers:
       - name: taimespaceadmin-ui
         image: taimespace.azurecr.io/taimespaceadmin:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
         env:

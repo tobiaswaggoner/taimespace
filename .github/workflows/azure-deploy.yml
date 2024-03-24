@@ -41,6 +41,8 @@ jobs:
         envsubst < k8s/rabbitmq-deployment.yml | kubectl apply -f -
         envsubst < k8s/ui-deployment.yml | kubectl apply -f -
         envsubst < k8s/service-deployment.yml | kubectl apply -f -
+        kubectl rollout restart deployment taimespaceadmin-ui
+        kubectl rollout restart deployment service
 
       env:
         RABBITMQ_DEFAULT_USER: ${{ secrets.RABBITMQ_DEFAULT_USER }}

@@ -15,6 +15,7 @@ spec:
       containers:
       - name: service
         image: taimespace.azurecr.io/service:latest
+        imagePullPolicy: Always
         env:
         - name: RMQ_HOST
           value: rabbitmq
