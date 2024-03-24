@@ -24,5 +24,7 @@ spec:
           value: ${RABBITMQ_DEFAULT_USER}
         - name: RMQ_PASS
           value: ${RABBITMQ_DEFAULT_PASS}
+        - name: RMQ_EXCHANGE_NAME
+          value: TAIMESPACE_DEV
         - name: OPENAI_API_KEY
           value: ${OPENAI_API_KEY}

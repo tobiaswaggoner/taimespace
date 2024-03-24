@@ -27,11 +27,11 @@ async def start_app():
 
 def get_rabbit_mq_configuration() -> MessageBrokerConfiguration:
     load_dotenv("rabbitmq.env")
-    user = os.getenv("RABBITMQ_DEFAULT_USER")
-    password = os.getenv("RABBITMQ_DEFAULT_PASS")
-    exchange_name = os.getenv("RABBITMQ_EXCHANGE")
-    host = os.getenv("RABBITMQ_HOST")
-    port = int(os.getenv("RABBITMQ_PORT"))
+    user = os.getenv("RMQ_USER")
+    password = os.getenv("RMQ_PASS")
+    exchange_name = os.getenv("RMQ_EXCHANGE_NAME")
+    host = os.getenv("RMQ_HOST")
+    port = int(os.getenv("RMQ_PORT"))
 
     message_broker_configuration = MessageBrokerConfiguration(
         host, port, user, password, exchange_name
