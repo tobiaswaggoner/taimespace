@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service
+  template:
+    metadata:
+      labels:
+        app: service
+    spec:
+      containers:
+      - name: service
+        image: taimespace.azurecr.io/service:latest
+        env:
+        - name: RMQ_HOST
+          value: rabbitmq
+        - name: RMQ_PORT
+          value: "5672"
+        - name: RMQ_USER
+          value: ${RABBITMQ_DEFAULT_USER}
+        - name: RMQ_PASS
+          value: ${RABBITMQ_DEFAULT_PASS}
+        - name: OPENAI_API_KEY
+          value: ${OPENAI_API_KEY}

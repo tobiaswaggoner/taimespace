@@ -24,6 +24,8 @@ jobs:
       run: |
         docker build -t taimespace.azurecr.io/taimespaceadmin:latest ./src/taimespaceadmin
         docker push taimespace.azurecr.io/taimespaceadmin:latest
+        docker build -t taimespace.azurecr.io/service:latest ./src/service
+        docker push taimespace.azurecr.io/service:latest
 
     - name: Login to Azure
       uses: azure/login@v1
