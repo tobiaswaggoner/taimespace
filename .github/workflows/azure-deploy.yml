@@ -40,6 +40,8 @@ jobs:
         az aks get-credentials --resource-group taimespace --name taimespace
         envsubst < k8s/rabbitmq-deployment.yml | kubectl apply -f -
         envsubst < k8s/ui-deployment.yml | kubectl apply -f -
+        envsubst < k8s/service-deployment.yml | kubectl apply -f -
+
       env:
         RABBITMQ_DEFAULT_USER: ${{ secrets.RABBITMQ_DEFAULT_USER }}
         RABBITMQ_DEFAULT_PASS: ${{ secrets.RABBITMQ_DEFAULT_PASS }}
