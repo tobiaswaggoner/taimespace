@@ -1,5 +1,6 @@
 import asyncio
 import os
+import signal
 from dotenv import load_dotenv
 from agents.SimpleAgent.SimpleAgent import SimpleAgent
 from agents.configuration.AgentConfiguration import AgentConfiguration
@@ -9,6 +10,7 @@ from messaging.configuration.MessageBrokerConfiguration import (
 )
 from util.get_logger import get_logger
 
+shutdown_signal = asyncio.Event()
 
 async def start_app():
     logger = get_logger()
@@ -20,10 +22,12 @@ async def start_app():
         logger=logger,
     )
     await agent.__aenter__()
-    await asyncio.to_thread(input, "Press Enter to stop...")
+    await shutdown_signal.wait()
     await agent.__aexit__(None, None, None)
     print("Done!")
 
+def handle_sigterm(*args):
+    shutdown_signal.set()
 
 def get_rabbit_mq_configuration() -> MessageBrokerConfiguration:
     load_dotenv("rabbitmq.env")
@@ -51,4 +55,6 @@ def get_agent_configuration() -> AgentConfiguration:
 
 
 if __name__ == "__main__":
+    signal.signal(signal.SIGTERM, handle_sigterm)
+    signal.signal(signal.SIGINT, handle_sigterm)
     asyncio.run(start_app())
